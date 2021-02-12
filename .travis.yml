@@ -16,6 +16,17 @@ install:
   - pip install codacy-coverage
 script:
   - cd decide
-  - coverage run --branch --source=. ./manage.py test authentication --keepdb
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
+  - python manage.py test census
+notifications:
+  email:
+    recipients:
+    - edubotdom@alum.us.es
+    on_success: always
+    on_failure: always
+deploy:
+  provider: heroku
+  app: egc-1819-edubotdom-1530
+  strategy: git
+  api_key: $HEROKU_AUTH_TOKEN
+  on:
+   branch: master
